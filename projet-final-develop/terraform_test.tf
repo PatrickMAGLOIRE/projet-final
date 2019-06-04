@@ -30,10 +30,10 @@ resource "google_compute_subnetwork" "sr2" {
   ip_cidr_range = "192.168.0.0/26"
   region        = "europe-west2"
   network       = "${google_compute_network.test.name}"
-  secondary_ip_range {
-    range_name    = "secondary-range"
-    ip_cidr_range = "192.168.10.0/24"
-  }
+  # secondary_ip_range {
+  #   range_name    = "secondary-range"
+  #   ip_cidr_range = "192.168.10.0/24"
+  # }
 }
 
 ############################## firewall 80 et 22 ########################################
@@ -97,7 +97,7 @@ resource "google_container_node_pool" "node1" {
   name       = "my-node1"
   location   = "europe-west2-b"
   cluster    = "${google_container_cluster.master.name}"
-  node_count = 2
+  node_count = 1
 
 
   node_config {
@@ -139,7 +139,13 @@ output "cluster_ca_certificate" {
 #                                                                                               #
 #################################################################################################
 
-
+# resource "google_compute_address" "external_with_subnet_and_address" {
+#   name         = "my-external-address"
+#   subnetwork   = "${google_compute_subnetwork.sr1.self_link}"
+#   address_type = "EXTERNAL"
+#   address      = "10.2.0.20"
+#   zone         = "europe-west2-b"
+# }
 
 resource "google_compute_instance" "mongodb" {
   name         = "centos"
@@ -160,6 +166,7 @@ resource "google_compute_instance" "mongodb" {
   network_interface {
     network       = "${google_compute_network.test.name}"
     subnetwork = "${google_compute_subnetwork.sr1.name}"
+    #address = "${google_compute_address.external_with_subnet_and_address.address}"
   access_config {
 
   }
