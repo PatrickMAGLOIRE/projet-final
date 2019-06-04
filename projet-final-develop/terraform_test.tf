@@ -148,7 +148,7 @@ output "cluster_ca_certificate" {
 # }
 
 resource "google_compute_instance" "mongodb" {
-  name         = "centos"
+  name         = "mongodb"
   machine_type = "n1-standard-1"
   zone         = "europe-west2-b"
 
@@ -164,6 +164,7 @@ resource "google_compute_instance" "mongodb" {
 
 
   network_interface {
+   
     network       = "${google_compute_network.test.name}"
     subnetwork = "${google_compute_subnetwork.sr1.name}"
     #address = "${google_compute_address.external_with_subnet_and_address.address}"
@@ -172,10 +173,10 @@ resource "google_compute_instance" "mongodb" {
   }
   }
 
-  tags = ["user01"]
+  tags = ["gcloud"]
 
   metadata {
-sshKeys="user01:${file("~/.ssh/id_rsa.pub")}"
+sshKeys="gcloud:${file("~/.ssh/id_rsa.pub")}"
 
   }
 
