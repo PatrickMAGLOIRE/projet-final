@@ -1,12 +1,12 @@
-package com.wunderit.projetcd;
+package com.wunderit.restfulweb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 @SpringBootApplication
-public class ProjetcdApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProjetcdApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
-
 }

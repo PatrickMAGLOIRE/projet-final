@@ -1,0 +1,18 @@
+# ignore binary files
+bin/
+target/
+
+# ignore local development files
+.classpath
+.settings
+.mvn
+.gradle
+.project
+.vscode
+.sts4-cache
+
+# ignore MacOS files
+**/**/.DS_Store
+
+# ignore Dockerfile
+Dockerfile
