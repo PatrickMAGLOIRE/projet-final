@@ -1,0 +1,7 @@
+---
+
+# Git install role
+
+  - name: Install git and its dependencies
+    yum: name=git state=installed
+
