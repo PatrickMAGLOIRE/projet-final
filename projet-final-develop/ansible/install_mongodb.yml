@@ -1,0 +1,31 @@
+---
+ - hosts: all
+   become: yes
+
+   tasks:
+    
+
+    - name: Ansible create file with content 
+      copy:
+        dest: "/etc/yum.repos.d/mongodb.repo"
+        content: |
+            [MongoDB]
+            name=MongoDB Repository
+            baseurl=http://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/
+            gpgcheck=0
+            enabled=1
+        mode: u=rw,g=r,o=r
+
+    - name: install the latest version of mongodb
+      yum:
+        name: mongodb-org
+        state: latest
+
+    - name: restart service mongodb
+      service:
+        name: mongod
+        state: restarted  
+
+    - name: start service mongodb
+      command: chkconfig mongod on
+       
