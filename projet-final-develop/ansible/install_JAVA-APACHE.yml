@@ -1,0 +1,18 @@
+---
+- hosts: apach
+  become: yes
+    
+  tasks:
+  
+# JAVA
+  - name: Check java installed
+    package:
+        name: "java-12.0.1-openjdk"
+        state: present
+
+# APACHE
+  - name: Install Apache.
+    yum: name=httpd state=present
+
+  - name: check Apache is up
+    service: name=httpd state=started enabled=yes

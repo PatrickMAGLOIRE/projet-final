@@ -101,7 +101,7 @@ resource "google_container_node_pool" "node1" {
 
 
   node_config {
-    preemptible  = true
+    
     machine_type = "n1-standard-1"
 
     metadata {

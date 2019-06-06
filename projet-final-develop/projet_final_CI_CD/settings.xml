@@ -14,7 +14,7 @@ xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.o
       <id>maven-releases</id>
       <username>admin</username>
       <password>admin123</password>
-</server>
+    </server>
 
 
 <mirrors>
