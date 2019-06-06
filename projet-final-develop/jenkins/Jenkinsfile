@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven'
+    }
+      environment {
+    SVC_ACCOUNT_KEY = credentials('terragoogle')
+  }
+    stages {
+              stage('Set Terraform path') {
+        steps {
+          script {
+          def tfHome = tool name: 'terraform'
+          env.PATH = "${tfHome}:${env.PATH}"
+          }
+        sh 'terraform --version'
+        }
+}
+    stage('Checkout') {
+      steps {
+        checkout scm
+        sh 'mkdir -p creds'
+        sh 'echo $SVC_ACCOUNT_KEY | base64 -d > projet-cluster-14b515b50cae.json'
+      }
+    }
+        stage ('checkout') {
+            steps {
+                git branch: 'develop', credentialsId: '14b515b50caed26de8f4fcd0a39710c46e584bad ', url: 'https://github.com/PatrickMAGLOIRE/projet-final.git'
+            }
+        }
+
+        stage ('parallel') {
+            parallel {
+                stage('junit tests') {
+                    steps {
+                        sh 'mvn install -D maven.test.skip=true'
+                    }
+                }
+                stage('pmd tests') {
+                    steps {
+                        sh 'mvn pmd:pmd'
+                    }
+                }
+            }
+        }
+    }  
+}
